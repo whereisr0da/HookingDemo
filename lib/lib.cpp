@@ -39,7 +39,7 @@ void writeTheHook() {
 
 	int lpWrite = WriteProcessMemory(GetCurrentProcess(), (LPVOID)functionAddress, jmpInstruction, instructionSize, &bytesWritten);
 
-	if (lpWrite == 0)
+	if (!lpWrite)
 	{
 		printf("[-] Fail to WriteProcessMemory\r\n");
 		return;
