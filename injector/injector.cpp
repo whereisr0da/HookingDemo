@@ -11,7 +11,7 @@ int main()
 
 	HWND hwnd = FindWindow(0, TEXT("TESTAPP"));
 
-	if (hwnd == NULL) {
+	if (!hwnd) {
 		printf("[-] Fail to FindWindow\r\n");
 		return 1;
 	}
@@ -32,7 +32,7 @@ int main()
 
 	LPVOID pathAddress = VirtualAllocEx(hProc, NULL, strlen(path), (MEM_COMMIT | MEM_RESERVE), 0x40);
 
-	if (pathAddress == NULL)
+	if (!pathAddress)
 	{
 		printf("[-] Fail to VirtualAllocEx\r\n");
 		return 1;
@@ -44,7 +44,7 @@ int main()
 
 	int lpWrite = WriteProcessMemory(hProc, pathAddress, path, strlen(path), &bytesWritten);
 
-	if (lpWrite == 0)
+	if (!lpWrite)
 	{
 		printf("[-] Fail to WriteProcessMemory\r\n");
 		return 1;
@@ -54,7 +54,7 @@ int main()
 
 	HANDLE remoteProc = CreateRemoteThread(hProc, NULL,	0, (LPTHREAD_START_ROUTINE)loadLibraryA, pathAddress, 0, NULL);
 
-	if (remoteProc == NULL)
+	if (!remoteProc)
 	{
 		printf("[-] Fail to CreateRemoteThread\r\n");
 		return 1;
